@@ -13,21 +13,25 @@ const CountryListStyled = styled.div`
   padding: 4em 2em;
 `;
 
-const CountryList = ({ countries }) => {
+const CountryList = ({ countries, send, state }) => {
   return (
     <CountryListStyled>
-      {countries.map(({ name, flag, population, capital, region }) => {
-        return (
-          <Country
-            flag={flag}
-            name={name}
-            key={name}
-            population={population}
-            region={region}
-            capital={capital}
-          />
-        );
-      })}
+      <InputComponent send={send} />
+      {state.matches("loading") && "Loading..."}
+      {state.matches("failure")
+        ? "Not Found"
+        : countries.map(({ name, flag, population, capital, region }) => {
+            return (
+              <Country
+                flag={flag}
+                name={name}
+                key={name}
+                population={population}
+                region={region}
+                capital={capital}
+              />
+            );
+          })}
     </CountryListStyled>
   );
 };

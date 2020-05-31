@@ -1,15 +1,26 @@
+// Modules
 import { Machine, assign } from "xstate";
+
+// Api
+import api from '../../api';
 
 // Context
 export const initialContext = {
   countries: [],
+  searchValue: '',
 };
 
 // Services
-const getCountries = async () => {
-  const response = await fetch("https://restcountries.eu/rest/v2/all");
-  const data = await response.json();
-  return data;
+const getCountries = async (context) => {
+  const { searchValue } = context;
+  console.log(searchValue);
+  if (searchValue !== '') {
+     const data = await api.countries.getFilterCountries(searchValue);
+     return data;
+  } else {
+    const data = await api.countries.getCountries();
+    return data;
+  }
 };
 
 // Actions
@@ -22,6 +33,16 @@ export const countriesMachine = Machine(
     id: "countries",
     initial: "loading",
     context: initialContext,
+    on: {
+      UPDATE_SEARCH: {
+        target: 'loading',
+        // cond: (context: obj, event: obj) =>
+        //   context.searchValue !== event.search,
+        actions: assign({
+          searchValue: (_, event) => event.search,
+        })
+      },
+    },
     states: {
       loading: {
         invoke: {
