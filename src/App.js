@@ -1,36 +1,34 @@
-import React from 'react';
-import './App.css';
-import CountryList from './country-list'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+// Modules
+import React from "react";
+import { useMachine } from "@xstate/react";
 
-const initialState = {
-  countryList: []
-}
+// Styles
+import "./App.css";
 
-function reducer(state, action) {
-  console.log(action)
-  switch (action.type) {
-    case 'SET_COUNTRY_LIST': {
-      console.log('voy a actualizar la lista de paises')
-      return { ...state, countryList: action.payload }
-    }
-    default: {
-      return state
-    }
-  }
-}
+// Components
+import CountryList from "./Components/country-list";
 
-const store = createStore(reducer, initialState)
+// State machine
+import { initialContext, countriesMachine } from "./Machines/countries";
 
-function App() {
-  return (
-    <Provider store={store}>
-      <div className="App">
-        <CountryList />
-      </div>
-    </Provider>
+const App = () => {
+  const [state, send] = useMachine(
+    countriesMachine.withContext({
+      ...initialContext,
+    })
   );
-}
+  const { countries, searchValue } = state.context;
+
+  return (
+    <div className="App">
+      <CountryList
+        searchValue={searchValue}
+        send={send}
+        countries={countries}
+        state={state}
+      />
+    </div>
+  );
+};
 
 export default App;
