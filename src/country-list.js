@@ -23,6 +23,9 @@ function CountryList() {
     if ('' !== state.filterByRegion) {
       return state.coutryFilteredByRegion;
     }
+    if (countryListByName.length > 0) {
+      return countryListByName
+    }
 
     return state.countryList;
   })
@@ -46,7 +49,7 @@ function CountryList() {
         console.log('hubo un error, que dolor que dolo que pena')
       })
   }, [dispatch])
-  const filterByName = (e) =>{
+  const filterByName = (e) => {
     setInputValue(e.target.value)
     dispatch({
       type: 'SET_COUNTRY_BY_NAME',
@@ -74,7 +77,7 @@ function CountryList() {
         </p>
       }
       {
-         (countryListByName.length > 0 ? countryListByName : countryList).map(({ name, flag, population, capital, region, }) => {
+        countryList.map(({ name, flag, population, capital, region, }) => {
           return (
             <Country
               flag={flag}
