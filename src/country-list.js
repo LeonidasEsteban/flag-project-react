@@ -16,6 +16,7 @@ const CountryListStyled = styled.div`
 function CountryList() {
   const dispatch = useDispatch()
   const countryList = useSelector((state) => state.countryList)
+  const countryListFilter = useSelector((state) => state.countryListFilter)
   console.log('el estado total de mi app es', countryList)
   // const [countryList, setCountryList] = useState([])
   useEffect(() => {
@@ -35,9 +36,26 @@ function CountryList() {
         console.log('hubo un error, que dolor que dolo que pena')
       })
   }, [dispatch])
+
   return (
     <CountryListStyled>
       {
+        countryListFilter.length > 0 &&
+        countryListFilter.map(({ name, flag, population, capital, region, }) => {
+          return (
+            <Country
+              flag={flag}
+              name={name}
+              key={name}
+              population={population}
+              region={region}
+              capital={capital}
+            />
+          )
+        })
+      }
+      {
+        countryListFilter.length < 1 && 
         countryList.map(({ name, flag, population, capital, region, }) => {
           return (
             <Country
