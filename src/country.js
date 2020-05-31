@@ -39,7 +39,7 @@ function Country({
       <img loading="lazy" src={flag} alt="" />
       <div className="details">
         <h2>{name}</h2>
-        <p><strong>Population:</strong> {population}</p>
+        <p><strong>Population:</strong> {new Intl.NumberFormat().format(population)}</p>
         <p><strong>Region:</strong> {region}</p>
         <p><strong>Capital:</strong> {capital}</p>
       </div>
