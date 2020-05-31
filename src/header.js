@@ -16,7 +16,12 @@ const HeaderStyled = styled.div`
   h1 {
     font-size: 14px;
   }
+  a {
+    text-decoration: none;
+    color: var(--dark);
+  }
   .dark-mode {
+    cursor: pointer;
     .moon {
       transform: rotate(-25deg);
       display: inline-flex;
@@ -27,11 +32,20 @@ const HeaderStyled = styled.div`
       font-weight: 600;
     }
   }
+  @media screen and (min-width: 768px) {
+    margin-bottom: 3em;
+    h1 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
 `
 
-function Header() {
+function Header({ setDarkMode, darkMode }) {
   function handleClick() {
-
+    setDarkMode(!darkMode)
   }
   return (
     <HeaderStyled>
@@ -45,8 +59,11 @@ function Header() {
           <div className="dark-mode">
             <p onClick={handleClick}>
               <span className="moon">
-                <i class="far fa-moon"></i>
-                {/* <i class="fas fa-moon"></i> */}
+                {
+                  darkMode ?
+                    <i className="fas fa-moon"></i> :
+                    <i className="far fa-moon"></i>
+                }
               </span>
               Dark Mode
             </p>

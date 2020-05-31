@@ -13,6 +13,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
+    "slugify": "^1.4.0",
     "styled-components": "^5.1.1"
   },
   "scripts": {

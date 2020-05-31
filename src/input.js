@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const InputStyled = styled.label`
   display: inline-flex;
-  background: white;
+  background: var(--white);
   align-items: center;
   box-shadow: 0 2px 9px 0 rgba(0,0,0,.05);
   padding: 0 2rem;
@@ -21,6 +21,8 @@ const InputStyled = styled.label`
     line-height: 48px;
     font-size: .7em;
     outline: 0;
+    color: var(--black);
+    background: var(--white);
     &::-webkit-input-placeholder {
       color: #C4C4C4;
     }
@@ -30,7 +32,7 @@ const InputStyled = styled.label`
 function Input({ ...props }) {
   return (
     <InputStyled>
-      <i class="fas fa-search"></i>
+      <i className="fas fa-search"></i>
       <input type="text" {...props} />
     </InputStyled>
   )

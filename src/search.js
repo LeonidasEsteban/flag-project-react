@@ -38,7 +38,7 @@ function Search() {
     <SearchStyled>
       {
         inputValue &&
-        <i class="fas fa-times close" onClick={clearInput}></i>
+        <i className="fas fa-times close" onClick={clearInput}></i>
       }
       <Input placeholder="Search for a country..." value={inputValue} onChange={filterByName} />
     </SearchStyled>
