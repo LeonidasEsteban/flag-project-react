@@ -36,8 +36,8 @@ export const countriesMachine = Machine(
     on: {
       UPDATE_SEARCH: {
         target: 'loading',
-        // cond: (context: obj, event: obj) =>
-        //   context.searchValue !== event.search,
+        cond: (context, event) =>
+          context.searchValue !== event.search,
         actions: assign({
           searchValue: (_, event) => event.search,
         })
