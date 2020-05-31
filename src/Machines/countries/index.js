@@ -1,35 +1,34 @@
 import { Machine, assign } from "xstate";
 
 // Context
-const context = {
+export const initialContext = {
   countries: [],
 };
 
 // Services
-const getData = async () => {
-  const countries = await fetch("https://restcountries.eu/rest/v2/all");
-  const data = await countries.json();
+const getCountries = async () => {
+  const response = await fetch("https://restcountries.eu/rest/v2/all");
+  const data = await response.json();
   return data;
 };
 
 // Actions
-
 const saveUserData = assign({
   countries: (_, event) => event.data,
 });
 
-const countriesMachine = Machine(
+export const countriesMachine = Machine(
   {
     id: "countries",
     initial: "loading",
-    context: context,
+    context: initialContext,
     states: {
       loading: {
         invoke: {
-          src: getData,
+          src: getCountries,
           onDone: {
             target: "success",
-            actions: ["saveUserData"],
+            actions: "saveUserData",
           },
           onError: {
             target: "failure",
@@ -50,9 +49,7 @@ const countriesMachine = Machine(
       saveUserData,
     },
     services: {
-      getData,
+      getCountries,
     },
   }
 );
-
-export default countriesMachine;
