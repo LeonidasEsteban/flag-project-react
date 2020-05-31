@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import Country from './country'
-import { useSelector, useDispatch } from 'react-redux'
+import React from "react";
+import styled from "styled-components";
+import Country from "./country";
+import { useMachine } from "@xstate/react";
+
+// State machine
+import countriesMachine from "./Machines/countries";
 
 const CountryListStyled = styled.div`
   display: grid;
@@ -11,34 +14,18 @@ const CountryListStyled = styled.div`
   justify-content: center;
   border: 1px solid red;
   padding: 4em 2em;
-`
+`;
 
-function CountryList() {
-  const dispatch = useDispatch()
-  const countryList = useSelector((state) => state.countryList)
-  console.log('el estado total de mi app es', countryList)
-  // const [countryList, setCountryList] = useState([])
-  useEffect(() => {
-    fetch('https://restcountries.eu/rest/v2/all')
-      .then((response) => {
-        return response.json()
-      })
-      .then((list) => {
-        dispatch({
-          type: 'SET_COUNTRY_LIST',
-          payload: list
-        })
-        // setCountryList(data)
-        console.log(list.length)
-      })
-      .catch(() => {
-        console.log('hubo un error, que dolor que dolo que pena')
-      })
-  }, [dispatch])
+const CountryList = () => {
+  const [state, send] = useMachine(countriesMachine.withContext());
+  const { countries } = state.context;
+
   return (
     <CountryListStyled>
-      {
-        countryList.map(({ name, flag, population, capital, region, }) => {
+      {!countries ? (
+        <p>Loading..</p>
+      ) : (
+        countries.map(({ name, flag, population, capital, region }) => {
           return (
             <Country
               flag={flag}
@@ -48,11 +35,11 @@ function CountryList() {
               region={region}
               capital={capital}
             />
-          )
+          );
         })
-      }
+      )}
     </CountryListStyled>
-  )
-}
+  );
+};
 
-export default CountryList
+export default CountryList;
