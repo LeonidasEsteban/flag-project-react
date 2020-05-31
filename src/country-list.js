@@ -9,18 +9,16 @@ const CountryListStyled = styled.div`
   /* grid-template-columns: 1fr 1fr 1fr; */
   background: var(--background);
   justify-content: center;
-  border: 1px solid red;
   padding: 4em 2em;
 `
 
 function CountryList() {
-  const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch()
 
   const countryListByName = useSelector((state) => state.countryListByName)
 
   const countryList = useSelector((state) => {
-    if ('' !== state.filterByRegion) {
+    if (state.filterByRegion !== '' && countryListByName.length === 0) {
       return state.coutryFilteredByRegion;
     }
     if (countryListByName.length > 0) {
@@ -49,33 +47,9 @@ function CountryList() {
         console.log('hubo un error, que dolor que dolo que pena')
       })
   }, [dispatch])
-  const filterByName = (e) => {
-    setInputValue(e.target.value)
-    dispatch({
-      type: 'SET_COUNTRY_BY_NAME',
-      payload: e.target.value
-    })
-  }
-  const clearInput = () => {
-    dispatch({
-      type: 'SET_COUNTRY_BY_NAME',
-      payload: ''
-    })
-    setInputValue('')
-  }
+
   return (
     <CountryListStyled>
-      <input type="text" value={inputValue} onChange={filterByName} />
-      {
-        inputValue &&
-        <button onClick={clearInput}>X</button>
-      }
-      {
-        countryListByName.length === 0 && inputValue &&
-        <p>
-          <strong>{inputValue}</strong> Not found in countries
-        </p>
-      }
       {
         countryList.map(({ name, flag, population, capital, region, }) => {
           return (

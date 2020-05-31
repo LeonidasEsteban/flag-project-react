@@ -1,10 +1,19 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components'
+
+const RegionFilterStyled = styled.select`
+  padding: 1.3em;
+  border: none;
+  border-radius: 5px;
+  outline: 0;
+  box-shadow: 0 2px 9px 0 rgba(0,0,0,.05);
+`
 
 const filterByRegionAction = (regionSelected) => {
   return {
     type: 'FILTER_BY_REGION',
-    payload: {regionSelected},
+    payload: { regionSelected },
   };
 }
 
@@ -14,7 +23,7 @@ export const Region = () => {
 
   /**
    * Disptach filterByRegion action
-   * 
+   *
    * @param {React.SyntheticEvent} selectEvent
    */
   const onRegionChange = (selectEvent) => {
@@ -24,13 +33,13 @@ export const Region = () => {
   }
 
   return (
-    <select onChange={onRegionChange} value={filterByRegion}>
+    <RegionFilterStyled onChange={onRegionChange} value={filterByRegion}>
       <option value="">Filter by region</option>
       <option value="Africa">Africa</option>
       <option value="Americas">Americas</option>
       <option value="Asia">Asia</option>
       <option value="Europe">Europe</option>
       <option value="Oceania">Oceania</option>
-    </select>
+    </RegionFilterStyled>
   )
 }
