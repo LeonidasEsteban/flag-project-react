@@ -22,7 +22,7 @@ const CountryList = () => {
 
   return (
     <CountryListStyled>
-      {!countries ? (
+      {state.matches("loading") ? (
         <p>Loading..</p>
       ) : (
         countries.map(({ name, flag, population, capital, region }) => {
