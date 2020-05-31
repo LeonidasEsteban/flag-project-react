@@ -16,8 +16,17 @@ const CountryListStyled = styled.div`
 function CountryList() {
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch()
-  const countryList = useSelector((state) => state.countryList)
+
   const countryListByName = useSelector((state) => state.countryListByName)
+
+  const countryList = useSelector((state) => {
+    if ('' !== state.filterByRegion) {
+      return state.coutryFilteredByRegion;
+    }
+
+    return state.countryList;
+  })
+
   console.log('el estado total de mi app es', countryList)
   // const [countryList, setCountryList] = useState([])
   useEffect(() => {
