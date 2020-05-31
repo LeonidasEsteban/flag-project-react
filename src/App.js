@@ -15,6 +15,13 @@ function reducer(state, action) {
       console.log('voy a actualizar la lista de paises')
       return { ...state, countryList: action.payload }
     }
+    case 'SEARCH_COUNTRY_LIST_BY_REGION': {
+      const countryListByRegion = state.countryList.filter(country => country.region === action.payload);
+      return {
+        ...state,
+        countryListByRegion,
+      }
+    }
     default: {
       return state
     }
