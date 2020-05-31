@@ -35,6 +35,22 @@ function CountryList() {
         console.log('hubo un error, que dolor que dolo que pena')
       })
   }, [dispatch])
+
+  const handleCountryByName = (countryName) => {
+    dispatch({
+      type: 'GET_COUNTRY_BY_NAME',
+      payload: countryName
+    })
+  }
+
+  const handleRegion= (regionName) => {
+    dispatch({
+      type: 'GET_COUNTRIES_BY_REGION',
+      payload: regionName
+    })
+  }
+
+
   return (
     <CountryListStyled>
       {
