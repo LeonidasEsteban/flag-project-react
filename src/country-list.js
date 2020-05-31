@@ -15,7 +15,7 @@ const CountryListStyled = styled.div`
 
 function CountryList() {
   const dispatch = useDispatch()
-  const countryList = useSelector((state) => state.countryList)
+  const countryList = useSelector((state) => state.filteredCountryList)
   console.log('el estado total de mi app es', countryList)
   // const [countryList, setCountryList] = useState([])
   useEffect(() => {
@@ -35,8 +35,27 @@ function CountryList() {
         console.log('hubo un error, que dolor que dolo que pena')
       })
   }, [dispatch])
+
+  const filterByName = (name) => {
+    dispatch({
+      type: 'FILTER_BY_NAME',
+      payload: name
+    })
+  }
+
+  const filterByRegion = (region) => {
+    dispatch({
+      type: 'FILTER_BY_REGION',
+      payload: region
+    })
+  }
+
   return (
     <CountryListStyled>
+      {/*TODO, reemplazar por los inputs adecuados*/}
+      <button onClick={() => filterByName('Peru')}>Filtrar por nombre : Perú</button>
+      <button onClick={() => filterByRegion('Africa')}>Filtrar por region: Africa</button>
+      <button onClick={() => filterByRegion('Americas')}>Filtrar por region: América</button>
       {
         countryList.map(({ name, flag, population, capital, region, }) => {
           return (
