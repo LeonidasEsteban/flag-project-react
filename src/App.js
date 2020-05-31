@@ -13,6 +13,12 @@ const initialState = {
 
 }
 
+// quita comas y caracteres especiales
+const removeDiacritics = string =>
+  string.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+const normalizeString = string => removeDiacritics(string).toLowerCase();
+
 function reducer(state, action) {
   console.log(action)
   switch (action.type) {
@@ -23,7 +29,7 @@ function reducer(state, action) {
 
     case 'SET_COUNTRY_BY_NAME': {
       const countryListByName = (state.countryList || [])
-        .filter(country => country.name.toLowerCase().includes(action.payload.toLowerCase()))
+        .filter(country => normalizeString(country.name).includes(normalizeString(action.payload)))
       return { ...state, countryListByName }
     }
 
