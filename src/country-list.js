@@ -14,7 +14,11 @@ const CountryListStyled = styled.div`
 `
 
 function CountryList() {
+  const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch()
+
+  const countryListByName = useSelector((state) => state.countryListByName)
+
   const countryList = useSelector((state) => {
     if ('' !== state.filterByRegion) {
       return state.coutryFilteredByRegion;
@@ -22,6 +26,7 @@ function CountryList() {
 
     return state.countryList;
   })
+
   console.log('el estado total de mi app es', countryList)
   // const [countryList, setCountryList] = useState([])
   useEffect(() => {
@@ -41,10 +46,35 @@ function CountryList() {
         console.log('hubo un error, que dolor que dolo que pena')
       })
   }, [dispatch])
+  const filterByName = (e) =>{
+    setInputValue(e.target.value)
+    dispatch({
+      type: 'SET_COUNTRY_BY_NAME',
+      payload: e.target.value
+    })
+  }
+  const clearInput = () => {
+    dispatch({
+      type: 'SET_COUNTRY_BY_NAME',
+      payload: ''
+    })
+    setInputValue('')
+  }
   return (
     <CountryListStyled>
+      <input type="text" value={inputValue} onChange={filterByName} />
       {
-        countryList.map(({ name, flag, population, capital, region, }) => {
+        inputValue &&
+        <button onClick={clearInput}>X</button>
+      }
+      {
+        countryListByName.length === 0 && inputValue &&
+        <p>
+          <strong>{inputValue}</strong> Not found in countries
+        </p>
+      }
+      {
+         (countryListByName.length > 0 ? countryListByName : countryList).map(({ name, flag, population, capital, region, }) => {
           return (
             <Country
               flag={flag}
