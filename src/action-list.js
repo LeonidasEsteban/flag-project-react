@@ -12,7 +12,7 @@ const ActionListStyled = styled.div`
   }
   @media screen and (min-width: 768px) {
     .grid {
-      grid-template-columns: 480px 1fr 200px;
+      grid-template-columns: 480px 1fr 164px;
     }
   }
 `
