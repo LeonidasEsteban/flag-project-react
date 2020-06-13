@@ -12,6 +12,7 @@ const RegionFilterStyled = styled.div`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   text-align: center;
+  text-decoration: none;
   font-size: 12px;
   padding: 20px;
   position: relative;
@@ -35,9 +36,10 @@ border-radius: 4px;
   background-color: var(--background-el);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
   display: none;
-  padding: 10px;
-  text-align: center;
+  padding: 0px 0px 0px 0px;
+  text-align: initial;
   position: absolute;
+  padding:10px;
   top: 100%;
   left: 0;
   list-style-type: none;
@@ -51,9 +53,15 @@ border-radius: 4px;
 }
 
 .dropdown ul li {
-  margin: 10px 0;
+  padding: 4px 10px;
 }
 
+.fa-chevron-up {
+  margin-left: 10px;  
+}
+li:hover {
+  color: gray;
+}
 `
 
 const filterByRegionAction = (regionSelected) => {
@@ -65,11 +73,10 @@ const filterByRegionAction = (regionSelected) => {
 
 export const Region = () => {
   const dispatch = useDispatch();
-  const [dropdown, setdropdown] = useState(false)
+  const [dropdown, setdropdown] = useState(true)
   const filterByRegion = useSelector((state) => state.filterByRegion);
 
   const onRegionChange = (selectEvent) => {
-
     dispatch(filterByRegionAction(selectEvent));
   }
 
@@ -77,10 +84,11 @@ export const Region = () => {
     <>
     <RegionFilterStyled>
 
-    <div className={`${dropdown?'dropdown open':'dropdown'}`} onClick={()=> setdropdown(!dropdown)} id="filter">
+    <div className={`${dropdown?'dropdown open':'dropdown'}`} onClick={()=> setdropdown(!dropdown)} id="filter" tabIndex="0" onBlur={()=> setdropdown(false)}>
           Filter by Region
-          <i className="fas fa-chevron-down"></i>
+          <i className={`fas ${!dropdown?'fa-chevron-up':'fa-chevron-down'}`}></i>
           <ul>
+            <li onClick={()=>onRegionChange('')}>All</li>
             <li onClick={()=>onRegionChange('Africa')}>Africa</li>
             <li onClick={()=>onRegionChange('Americas')}>Americas</li>
             <li onClick={()=>onRegionChange('Asia')}>Asia</li>
