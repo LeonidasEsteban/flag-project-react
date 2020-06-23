@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 
 const CountrySelectedStyled = styled.div`
@@ -33,7 +33,16 @@ const CountrySelectedStyled = styled.div`
         }
       }
     }
+  }  
+  .name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    button {
+      height: fit-content;
+    }
   }
+
   @media screen and (min-width: 1024px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -64,11 +73,28 @@ function CountrySelected({
   borders = [],
   alpha2Code
 }) {
+  const [edit, setEdit] = useState(false);
   return (
     <CountrySelectedStyled>
       <img src={flag} alt="" />
       <div>
-        <h2>{name}</h2>
+        <div className="name">
+          {!edit && (
+            <>
+              <h2>{name}</h2>
+              <button className="" onClick={() => setEdit(true)}>Edit Name</button>
+            </>
+          )}
+          {edit && (
+            <>
+              <input type="text" value={name} />
+              <span>
+                <button onClick={() => console.log('to edit')}>Edit</button>
+                <button onClick={() => setEdit(false)}>Cancel</button>
+              </span>
+            </>
+          )}
+        </div>
         <div className="grid">
           <div>
             <p><strong>Native Name:</strong> {nativeName}</p>
