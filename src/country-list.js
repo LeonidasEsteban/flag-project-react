@@ -38,7 +38,7 @@ function CountryList() {
       .then((response) => {
         return response.json()
       })
-      .then((list) => {
+      .then(({ countries: list }) => {
         dispatch({
           type: 'SET_COUNTRY_LIST',
           payload: list

@@ -60,6 +60,7 @@ const CountrySelectedStyled = styled.div`
 `
 
 function CountrySelected({
+  id,
   flag,
   name,
   nativeName,
@@ -74,6 +75,15 @@ function CountrySelected({
   alpha2Code
 }) {
   const [edit, setEdit] = useState(false);
+  const [editableName, setEditableName] = useState(name);
+  async function handleEditName() {
+    const updated = await fetch(`https://restcountries.eu/rest/v2/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(editableName)
+    });
+    console.log('handleEditName =>', updated);
+    setEdit(false);
+  }
   return (
     <CountrySelectedStyled>
       <img src={flag} alt="" />
@@ -81,15 +91,15 @@ function CountrySelected({
         <div className="name">
           {!edit && (
             <>
-              <h2>{name}</h2>
+              <h2>{editableName}</h2>
               <button className="" onClick={() => setEdit(true)}>Edit Name</button>
             </>
           )}
           {edit && (
             <>
-              <input type="text" value={name} />
+              <input type="text" value={editableName} onChange={e => setEditableName(e.target.value)} />
               <span>
-                <button onClick={() => console.log('to edit')}>Edit</button>
+                <button onClick={handleEditName}>Edit</button>
                 <button onClick={() => setEdit(false)}>Cancel</button>
               </span>
             </>
