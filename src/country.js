@@ -60,14 +60,14 @@ function Country({
   }
 
   return (
-    <CountryStyled onClick={handleClick}>
+    <CountryStyled data-testid="country" onClick={handleClick}>
       <img loading="lazy" src={flag} alt="" />
       <div className="details">
-        <h2>{name}</h2>
+        <h2 data-testid="name">{name}</h2>
         {/* <p><strong>AF:</strong> {alpha2Code}</p> */}
-        <p><strong>Population:</strong> {population}</p>
-        <p><strong>Region:</strong> {region}</p>
-        <p><strong>Capital:</strong> {capital}</p>
+        <p><strong>Population:</strong> <span data-testid="population">{population}</span></p>
+        <p><strong>Region:</strong> <span data-testid="region">{region}</span></p>
+        <p><strong>Capital:</strong> <span data-testid="capital">{capital}</span></p>
       </div>
     </CountryStyled>
   )
