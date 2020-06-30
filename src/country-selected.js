@@ -68,19 +68,27 @@ function CountrySelected({
     <CountrySelectedStyled>
       <img src={flag} alt="" />
       <div>
-        <h2>{name}</h2>
+        <h2 data-testid="name">{name}</h2>
         <div className="grid">
           <div>
-            <p><strong>Native Name:</strong> {nativeName}</p>
-            <p><strong>Population:</strong> {population}</p>
-            <p><strong>Region:</strong> {region}</p>
-            <p><strong>Sub Region:</strong> {subregion}</p>
-            <p><strong>Capital:</strong> {capital}</p>
+            <p><strong>Native Name:</strong> <span data-testid="native-name">{nativeName}</span></p>
+            <p><strong>Population:</strong> <span data-testid="population">{population}</span></p>
+            <p><strong>Region:</strong> <span data-testid="region">{region}</span></p>
+            <p><strong>Sub Region:</strong> <span data-testid="sub-region">{subregion}</span></p>
+            <p><strong>Capital:</strong> <span data-testid="capital">{capital}</span></p>
           </div>
           <div>
-            <p><strong>Top Level Domain:</strong> {topLevelDomain}</p>
-            <p><strong>Currencies:</strong> {currencies.map((item) => <span>{item.name}</span>)}</p>
-            <p className="languages"><strong>Languages:</strong> {languages.map((item) => <span>{item.name}</span>)}</p>
+            <p><strong>Top Level Domain:</strong> <span data-testid="top-level-domain">{topLevelDomain}</span></p>
+            <p><strong>Currencies:</strong>
+              <span data-testid="currencies">
+                {currencies.map((item) => <span>{item.name}</span>)}
+              </span>
+            </p>
+            <p className="languages"><strong>Languages:</strong>
+              <span data-testid="languages">
+                {languages.map((item) => <span>{item.name}</span>)}
+              </span>
+            </p>
           </div>
         </div>
         <p className="borders"><strong>Border Countries:</strong></p>

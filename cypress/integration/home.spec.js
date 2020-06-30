@@ -1,4 +1,5 @@
-const firstCountry = '[data-testid="country"]:nth-child(1)';
+import { firstCountry } from './utils';
+
 describe('Layout', () => {
   it('Assert page render data correctly', () => {
     cy.visit('/');
@@ -27,15 +28,28 @@ describe('filters', function () {
     // Assert Anguilla is at first position now
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Anguilla');
   });
-  it.only('should filter by text', function () {
+  it('should filter by text', function () {
     cy.visit('/');
     // having Afghanistan at first position
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
 
-    // When user select Americas region
+    // When user type Mex
     cy.get('input').type('Mex');
 
-    // Assert Anguilla is at first position now
+    // Assert Mexico is at first position now
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Mexico');
+  });
+  it.only('should show all countries without filter when user clicks on remove input icon', function () {
+    cy.visit('/');
+    // having Afghanistan at first position
+    cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
+    // and filtering by text
+    cy.get('input').type('Mex');
+
+    // When user clicks on remove icon
+    cy.get('.fa-times').click();
+
+    // Assert Anguilla is at first position now
+    cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
   });
 });
