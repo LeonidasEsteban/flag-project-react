@@ -39,7 +39,7 @@ describe('filters', function () {
     // Assert Mexico is at first position now
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Mexico');
   });
-  it.only('should show all countries without filter when user clicks on remove input icon', function () {
+  it('should show all countries without filter when user clicks on remove input icon', function () {
     cy.visit('/');
     // having Afghanistan at first position
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
@@ -51,5 +51,22 @@ describe('filters', function () {
 
     // Assert Anguilla is at first position now
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
+  });
+  it('should filter by text and later by region', function () {
+    cy.visit('/');
+    // having Afghanistan at first position
+    cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
+
+    // When:
+    // - user type
+    cy.get('input').type('Do');
+    cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Andorra');
+
+    // - user select Americas region
+    cy.get('#filter').click();
+    cy.get('ul > :nth-child(2)').click();
+
+    // Assert Mexico is at first position now
+    cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Barbados');
   });
 });
