@@ -13,8 +13,18 @@ describe('Navigation', function () {
   });
 
   // Back
+  it('should redirect back when user click on back button', function () {
+    // having first country details
+    cy.visit('/');
+    cy.get(`${firstCountry}`).click();
 
-  // Ir directo a la página y ver info
+    // When user clicks back
+    cy.get('.back').click();
+
+    // Then redirect to home page
+    cy.url().should('not.include', '/country/AF');
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
+  });
 });
 
 describe('Content', function () {
@@ -23,7 +33,7 @@ describe('Content', function () {
     cy.get(`${firstCountry}`).click();
   });
 
-  it.only('should show data correctly', function () {
+  it('should show data correctly', function () {
     cy.get('img').should('have.attr', 'src', 'https://restcountries.eu/data/afg.svg');
     cy.get('[data-testid="name"]').should('contain', 'Afghanistan');
     cy.get('[data-testid="population"]').should('contain', '27657145');
@@ -41,4 +51,14 @@ describe('Content', function () {
     // border countries
     cy.get('.border-item').should('have.length', 6);
   });
+
+  // Go to details from url
+  it('should show data when user enter exact url path', function () {
+    // having
+    cy.visit('/country/AF');
+
+    // Get and show data
+    cy.get('[data-testid="name"]').should('contain', 'Afghanistan');
+  });
+
 });
