@@ -25,6 +25,18 @@ describe('Navigation', function () {
     cy.url().should('not.include', '/country/AF');
     cy.url().should('eq', Cypress.config().baseUrl + '/');
   });
+
+  it.only('should redirect back when user enter espeicif url path', function () {
+    // having first country details
+    cy.visit('/country/AF');
+
+    // When user clicks back
+    cy.get('.back').click();
+
+    // Then redirect to home page
+    cy.url().should('not.include', '/country/AF');
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
+  });
 });
 
 describe('Content', function () {
