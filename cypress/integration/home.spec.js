@@ -12,3 +12,18 @@ describe('Layout', () => {
     })
   })
 })
+
+describe('filters', function () {
+  it.only('should filter by region', function () {
+    cy.visit('/');
+    // having Afghanistan at first position
+    cy.get('[data-testid="country"]:nth-child(1) [data-testid="name"]').should('contain', 'Afghanistan');
+
+    // When user select Americas region
+    cy.get('#filter').click();
+    cy.get('ul > :nth-child(2)').click();
+
+    // Assert Anguilla is at first position now
+    cy.get('[data-testid="country"]:nth-child(1) [data-testid="name"]').should('contain', 'Anguilla');
+  });
+});
