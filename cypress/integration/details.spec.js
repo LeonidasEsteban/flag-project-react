@@ -26,7 +26,7 @@ describe('Navigation', function () {
     cy.url().should('eq', Cypress.config().baseUrl + '/');
   });
 
-  it.only('should redirect back when user enter espeicif url path', function () {
+  it('should redirect back when user enter espeicif url path', function () {
     // having first country details
     cy.visit('/country/AF');
 
