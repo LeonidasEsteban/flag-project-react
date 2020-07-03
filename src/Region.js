@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
+import useStore from './store';
+
 const RegionFilterStyled = styled.div`
 @import url('https://fonts.google.com/specimen/Nunito+Sans');
 * {
@@ -64,13 +65,15 @@ const filterByRegionAction = (regionSelected) => {
 }
 
 export const Region = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [dropdown, setdropdown] = useState(false)
-  const filterByRegion = useSelector((state) => state.filterByRegion);
+  const { filterByRegion, regionSelected } = useStore();
+  // const filterByRegion = useSelector((state) => state.filterByRegion);
 
   const onRegionChange = (selectEvent) => {
-
-    dispatch(filterByRegionAction(selectEvent));
+    console.log('onRegionChange =>', selectEvent);
+    filterByRegion(selectEvent);
+    // dispatch(filterByRegionAction(selectEvent));
   }
 
   return (

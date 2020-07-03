@@ -1,5 +1,10 @@
 import { firstCountry } from './utils';
 
+// Cypress.on('uncaught:exception', (err, runnable) => {
+//   console.log(err);
+//   return false;
+// });
+
 describe('Layout', () => {
   it('Assert page render data correctly', () => {
     cy.visit('/');
@@ -28,7 +33,7 @@ describe('filters', function () {
     // Assert Anguilla is at first position now
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Anguilla');
   });
-  it('should filter by text', function () {
+  it.only('should filter by text', function () {
     cy.visit('/');
     // having Afghanistan at first position
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
