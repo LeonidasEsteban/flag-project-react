@@ -33,7 +33,7 @@ describe('filters', function () {
     // Assert Anguilla is at first position now
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Anguilla');
   });
-  it.only('should filter by text', function () {
+  it('should filter by text', function () {
     cy.visit('/');
     // having Afghanistan at first position
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
