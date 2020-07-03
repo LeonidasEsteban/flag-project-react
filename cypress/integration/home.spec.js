@@ -1,10 +1,5 @@
 import { firstCountry } from './utils';
 
-// Cypress.on('uncaught:exception', (err, runnable) => {
-//   console.log(err);
-//   return false;
-// });
-
 describe('Layout', () => {
   it('Assert page render data correctly', () => {
     cy.visit('/');
