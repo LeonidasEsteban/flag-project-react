@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import CountryList from './country-list'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import reducer from './reducer'
 import ActionList from './action-list'
 import Header from './header'
 import CountryPage from './country-page'
@@ -13,15 +10,6 @@ import {
   Switch,
 } from 'react-router-dom'
 
-const initialState = {
-  countryList: [],
-  countryListByName: [],
-  coutryFilteredByRegion: [],
-  filterByRegion: '',
-
-}
-
-const store = createStore(reducer, initialState)
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
@@ -44,18 +32,16 @@ function App() {
   }, [])
   return (
     <main className={mainClass}>
-      <Provider store={store}>
-        <Router>
-          <Header setDarkMode={setDarkMode} darkMode={darkMode} />
-          <Switch>
-            <Route path="/country/:id" component={CountryPage} />
-            <Route path="/">
-              <ActionList />
-              <CountryList />
-            </Route>
-          </Switch>
-        </Router>
-      </Provider>
+      <Router>
+        <Header setDarkMode={setDarkMode} darkMode={darkMode} />
+        <Switch>
+          <Route path="/country/:id" component={CountryPage} />
+          <Route path="/">
+            <ActionList />
+            <CountryList />
+          </Route>
+        </Switch>
+      </Router>
     </main>
   );
 }

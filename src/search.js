@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Input from './input'
-import { useDispatch } from 'react-redux'
+import useStore from "./store";
 
 const SearchStyled = styled.div`
   display: flex;
@@ -17,22 +17,17 @@ const SearchStyled = styled.div`
 `
 
 function Search() {
+  const { filterByName: filterByNameAction } = useStore();
   const [inputValue, setInputValue] = useState('')
-  const dispatch = useDispatch()
 
   const filterByName = (e) => {
-    setInputValue(e.target.value)
-    dispatch({
-      type: 'SET_COUNTRY_BY_NAME',
-      payload: e.target.value
-    })
+    const { value } = e.target;
+    setInputValue(value)
+    filterByNameAction(value)
   }
   const clearInput = () => {
-    dispatch({
-      type: 'SET_COUNTRY_BY_NAME',
-      payload: ''
-    })
     setInputValue('')
+    filterByNameAction('')
   }
   return (
     <SearchStyled>
