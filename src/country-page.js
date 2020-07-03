@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Wrapper from './wrapper'
-import { useSelector } from 'react-redux'
 import CountrySelected from './country-selected'
+import useStore from "./store";
 
 const CountryPageStyled = styled.div`
   .back {
@@ -26,7 +26,7 @@ const CountryPageStyled = styled.div`
 `
 
 function CountryPage({ match, history }) {
-  let DBcountry = useSelector(state => state.countryList.find(item => item.alpha2Code === match.params.id))
+  const DBcountry = useStore(state => state.countryList.find(item => item.alpha2Code === match.params.id));
   const [country, setCountry] = useState(DBcountry)
   useEffect(() => {
 

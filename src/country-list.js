@@ -17,19 +17,6 @@ const CountryListStyled = styled.div`
 
 function CountryList() {
   const { filteredCountries: countryList, fetchCountryList } = useStore();
-  // console.log('store =>', countryList);
-  // const countryListByName = useSelector((state) => state.countryListByName)
-
-  // const countryList = useSelector((state) => {
-  //   if (state.latestSearch === 'region') {
-  //     return state.coutryFilteredByRegion;
-  //   }
-  //   if (state.latestSearch === 'name') {
-  //     return countryListByName
-  //   }
-  //
-  //   return state.countryList;
-  // })
 
   console.log('el estado total de mi app es', countryList)
   // const [countryList, setCountryList] = useState([])
@@ -43,7 +30,6 @@ function CountryList() {
       <CountryListStyled>
         {
           countryList.map(({ name, flag, population, capital, region, nativeName, cioc, alpha2Code }) => {
-          // [].map(({ name, flag, population, capital, region, nativeName, cioc, alpha2Code }) => {
             return (
               <Country
                 flag={flag}

@@ -57,24 +57,9 @@ border-radius: 4px;
 
 `
 
-const filterByRegionAction = (regionSelected) => {
-  return {
-    type: 'FILTER_BY_REGION',
-    payload: { regionSelected },
-  };
-}
-
 export const Region = () => {
-  // const dispatch = useDispatch();
   const [dropdown, setdropdown] = useState(false)
-  const { filterByRegion, regionSelected } = useStore();
-  // const filterByRegion = useSelector((state) => state.filterByRegion);
-
-  const onRegionChange = (selectEvent) => {
-    console.log('onRegionChange =>', selectEvent);
-    filterByRegion(selectEvent);
-    // dispatch(filterByRegionAction(selectEvent));
-  }
+  const { filterByRegion } = useStore();
 
   return (
     <>
@@ -84,11 +69,11 @@ export const Region = () => {
           Filter by Region
           <i className="fas fa-chevron-down"></i>
           <ul>
-            <li onClick={()=>onRegionChange('Africa')}>Africa</li>
-            <li onClick={()=>onRegionChange('Americas')}>Americas</li>
-            <li onClick={()=>onRegionChange('Asia')}>Asia</li>
-            <li onClick={()=>onRegionChange('Europe')}>Europe</li>
-            <li onClick={()=>onRegionChange('Oceania')}>Oceania</li>
+            <li onClick={()=>filterByRegion('Africa')}>Africa</li>
+            <li onClick={()=>filterByRegion('Americas')}>Americas</li>
+            <li onClick={()=>filterByRegion('Asia')}>Asia</li>
+            <li onClick={()=>filterByRegion('Europe')}>Europe</li>
+            <li onClick={()=>filterByRegion('Oceania')}>Oceania</li>
           </ul>
         </div>
     </RegionFilterStyled>
