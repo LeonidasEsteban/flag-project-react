@@ -71,7 +71,24 @@ describe('filters', function () {
     cy.get('#filter').click();
     cy.get('ul > :nth-child(2)').click();
 
-    // Assert Mexico is at first position now
+    // Assert Barbados is at first position now
+    cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Barbados');
+  });
+  it('should filter by region and later by name', function () {
+    cy.visit('/');
+    // having Afghanistan at first position
+    cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Afghanistan');
+
+    // When:
+    // - user select Americas region
+    cy.get('#filter').click();
+    cy.get('ul > :nth-child(2)').click();
+    cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Anguilla');
+
+    // - user type
+    cy.get('input').type('Do');
+
+    // Assert Barbados is at first position now
     cy.get(`${firstCountry} [data-testid="name"]`).should('contain', 'Barbados');
   });
 });
