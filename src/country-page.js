@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Wrapper from './wrapper'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import CountrySelected from './country-selected'
 
 const CountryPageStyled = styled.div`
@@ -26,6 +26,7 @@ const CountryPageStyled = styled.div`
 `
 
 function CountryPage({ match, history }) {
+  const dispatch = useDispatch();
   let DBcountry = useSelector(state => state.countryList.find(item => item.alpha2Code === match.params.id))
   const [country, setCountry] = useState(DBcountry)
   useEffect(() => {
@@ -41,6 +42,10 @@ function CountryPage({ match, history }) {
 
   function handleClick() {
     history.goBack()
+    dispatch({
+      type: 'SET_COUNTRY_BY_NAME',
+      payload: '',
+    })
   }
   return (
     <CountryPageStyled>
