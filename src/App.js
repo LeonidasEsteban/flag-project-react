@@ -18,7 +18,7 @@ const initialState = {
   countryListByName: [],
   coutryFilteredByRegion: [],
   filterByRegion: '',
-
+  latestSearch: '',
 }
 
 const store = createStore(reducer, initialState)

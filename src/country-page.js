@@ -40,7 +40,7 @@ function CountryPage({ match, history }) {
   }, [country, match.params.id])
 
   function handleClick() {
-    history.goBack()
+    history.push('/');
   }
   return (
     <CountryPageStyled>
